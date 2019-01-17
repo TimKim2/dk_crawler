@@ -11,7 +11,7 @@ class SuperCrawler(SuperSelenium):
         self.set_condition()
         self.crawling_resume()
         self.make_csv()
-        # self.driver.quit()
+        self.driver.quit()
 
     def load_page(self):
         raise NotImplementedError
