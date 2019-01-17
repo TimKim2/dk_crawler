@@ -21,6 +21,8 @@ class TradeinCrawler(SuperCrawler):
 
         self.people_list = []
 
+        self.file_link = ''
+
     def init_condition(self, first_business_category='', second_business_category='', occupational_category='',
                        area_category='', detail_area_category='', sex_category='', read_number=50):
         self.first_business_category = first_business_category
@@ -179,6 +181,9 @@ class TradeinCrawler(SuperCrawler):
         today_time = datetime.today().strftime("%Y%m%d%H%M")
 
         export_csv = df.to_csv('csv/' + today_time + '.csv', index=None, header=True)
+
+        self.file_link = 'http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/csv/' \
+                         + today_time + '.csv'
 
         print("링크")
         print('http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/csv/'
