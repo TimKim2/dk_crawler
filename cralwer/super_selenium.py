@@ -5,18 +5,16 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 
+
 class SuperSelenium(object):
     def __init__(self):
-        print("start Init")
-        '''
+        print('시작')
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
 
         self.driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', chrome_options=options)
-        print("end Init")
-        '''
         self.driver = webdriver.Chrome()
 
     def url_action(self, url):
