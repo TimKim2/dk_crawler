@@ -86,10 +86,10 @@ class TradeinCrawler(SuperCrawler):
                     people = People()
 
                     people.age = self.get_age('//*[@id="Table4"]/tbody/tr[6]/td/'
-                                              'table/tbody/tr[' + str(count * 3 + 1) + ']/td[1]')
+                                              'table/tbody/tr[' + str((count % 50) * 3 + 1) + ']/td[1]')
 
                     people.url = self.enter_page('//*[@id="Table4"]/tbody/tr[6]/td/'
-                                    'table/tbody/tr[' + str(count * 3 + 1) + ']/td[4]/a')
+                                                 'table/tbody/tr[' + str((count % 50) * 3 + 1) + ']/td[4]/a')
 
                     if self.check_alert():
                         count += 1
@@ -235,5 +235,5 @@ class TradeinCrawler(SuperCrawler):
 
 if __name__ == '__main__':
     crawler = TradeinCrawler()
-    crawler.init_condition('무역서비스업', '판매', '오더관리', '경기', '가평군', '남', 4)
+    crawler.init_condition('무역서비스업', '판매', '오더관리', '경기', '가평군', '남', 60)
     crawler.run()
