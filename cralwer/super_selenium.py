@@ -15,7 +15,6 @@ class SuperSelenium(object):
         options.add_argument('--disable-dev-shm-usage')
 
         self.driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', chrome_options=options)
-        self.driver = webdriver.Chrome()
 
     def url_action(self, url):
         self.driver.get(url)
