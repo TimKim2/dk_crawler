@@ -178,7 +178,7 @@ class TradeinCrawler(SuperCrawler):
 
         today_time = datetime.today().strftime("%Y%m%d%H%M")
 
-        export_csv = df.to_csv('./' + today_time + '.csv', index=None, header=True)
+        export_csv = df.to_csv('csv/' + today_time + '.csv', index=None, header=True)
 
         # print("링크")
         # print('http://172.28.10.9:20002/edit/tim/Share/CSV/' + today_time + '.csv')
