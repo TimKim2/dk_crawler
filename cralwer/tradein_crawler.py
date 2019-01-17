@@ -180,8 +180,9 @@ class TradeinCrawler(SuperCrawler):
 
         export_csv = df.to_csv('csv/' + today_time + '.csv', index=None, header=True)
 
-        # print("링크")
-        # print('http://172.28.10.9:20002/edit/tim/Share/CSV/' + today_time + '.csv')
+        print("링크")
+        print('http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/csv/'
+              + today_time + '.csv')
 
     def click_condition(self, category, xpath):
         if category == '':
