@@ -1,10 +1,13 @@
 from cralwer.super_selenium import SuperSelenium
 import sys
+from collections import defaultdict
+
 
 # 상속 해주는 크롤링 클래스
 class SuperCrawler(SuperSelenium):
     def __init__(self):
         super(SuperCrawler, self).__init__()
+        self.csv_data = defaultdict(list)
 
     def run(self):
         self.load_page()

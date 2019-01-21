@@ -12,6 +12,7 @@ class People(object):
         self.current_state = ''
         self.last_achieve = ''
         self.major = ''
+        self.total_career = ''
 
 
 
