@@ -23,6 +23,8 @@ class IncruitCrawler(SuperCrawler):
 
         self.file_link = ''
 
+        self.excel_list = []
+
     def load_page(self):
         self.url_action('http://resumedb.incruit.com/list/searchresume.asp?where=All')
         self.wait_action('//*[@id="searchForm"]/div[2]/div[2]/div[2]/div[2]/table/tbody')
@@ -56,10 +58,8 @@ class IncruitCrawler(SuperCrawler):
                     people_dict['총학력'] = self.get_text('//*[@id="resumeViewWrap"]'
                                                        '/div[2]/div[1]/div/div[1]/table/tbody/tr/td[2]/div/p/em')
 
-                    people_dict['최종학력'] = self.get_text('//*[@id="resumeViewWrap"]/div[2]/div[1]/div/div[1]/'
+                    people_dict['희망연봉'] = self.get_text('//*[@id="resumeViewWrap"]/div[2]/div[1]/div/div[1]/'
                                                         'table/tbody/tr/td[3]/div/p/span')
-
-                    self.people_list.append(people_dict)
 
                     self.go_back_page()
 
