@@ -43,28 +43,28 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="2" />
-          <entry key="py" value="7351" />
+          <entry key="py" value="7355" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="7351" />
+          <entry key="Python" value="7355" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cralwer/super_selenium.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="34" column="17" lean-forward="true" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
+            <state relative-caret-position="33">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="13" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
-                <marker date="1548247919973" expanded="true" signature="863:869" ph="..." />
-                <marker date="1548247919973" expanded="true" signature="2535:2684" ph="..." />
+                <marker date="1548254810086" expanded="true" signature="863:869" ph="..." />
+                <marker date="1548254810086" expanded="true" signature="2510:2659" ph="..." />
               </folding>
             </state>
           </provider>
@@ -73,7 +73,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cralwer/incruit_crawler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
+            <state relative-caret-position="555">
               <caret line="134" column="22" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
@@ -84,7 +84,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cralwer/csv/incruit201901232344.csv">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1160" />
@@ -139,8 +139,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cralwer/jobkorea_crawler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2190">
-              <caret line="146" column="149" lean-forward="true" selection-start-line="146" selection-start-column="28" selection-end-line="146" selection-end-column="149" />
+            <state relative-caret-position="1101">
+              <caret line="83" column="35" selection-start-line="83" selection-start-column="35" selection-end-line="83" selection-end-column="35" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
               </folding>
@@ -180,6 +180,7 @@
       <find>'//*[@id=&quot;viewSPL&quot;]'</find>
       <find>'//*[@id=&quot;viewSPL</find>
       <find>current</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -197,11 +198,11 @@
         <option value="$PROJECT_DIR$/cralwer/people.py" />
         <option value="$PROJECT_DIR$/cralwer/saramin_crawler.py" />
         <option value="$PROJECT_DIR$/cralwer/tradein_crawler.py" />
-        <option value="$PROJECT_DIR$/cralwer/super_selenium.py" />
-        <option value="$PROJECT_DIR$/cralwer/jobkorea_crawler.py" />
         <option value="$PROJECT_DIR$/cralwer/incruit_crawler.py" />
         <option value="$PROJECT_DIR$/cralwer/worknet_crawler.py" />
         <option value="$PROJECT_DIR$/cralwer/super_crawler.py" />
+        <option value="$PROJECT_DIR$/cralwer/super_selenium.py" />
+        <option value="$PROJECT_DIR$/cralwer/jobkorea_crawler.py" />
       </list>
     </option>
   </component>
@@ -539,28 +540,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cralwer/jobkorea_crawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2190">
-          <caret line="146" column="149" lean-forward="true" selection-start-line="146" selection-start-column="28" selection-end-line="146" selection-end-column="149" />
-          <folding>
-            <element signature="e#0#46#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cralwer/super_selenium.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="34" column="17" lean-forward="true" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-            <marker date="1548247919973" expanded="true" signature="863:869" ph="..." />
-            <marker date="1548247919973" expanded="true" signature="2535:2684" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cralwer/super_crawler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -573,9 +552,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cralwer/csv/incruit201901232344.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1160" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cralwer/incruit_crawler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
+        <state relative-caret-position="555">
           <caret line="134" column="22" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
           <folding>
             <element signature="e#0#46#0" expanded="true" />
@@ -585,9 +569,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cralwer/csv/incruit201901232344.csv">
+    <entry file="file://$PROJECT_DIR$/cralwer/jobkorea_crawler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1160" />
+        <state relative-caret-position="1101">
+          <caret line="83" column="35" selection-start-line="83" selection-start-column="35" selection-end-line="83" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cralwer/super_selenium.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+            <marker date="1548254810086" expanded="true" signature="863:869" ph="..." />
+            <marker date="1548254810086" expanded="true" signature="2510:2659" ph="..." />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>
