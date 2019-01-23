@@ -8,8 +8,6 @@ from collections import defaultdict
 class TradeinCrawler(SuperCrawler):
     def __init__(self):
         super(TradeinCrawler, self).__init__()
-        self.repeat_count = 10
-
         self.crawl_url = 'http://www.tradein.co.kr/apply/apply_all.asp'
         self.read_number = 1
 
@@ -112,7 +110,6 @@ class TradeinCrawler(SuperCrawler):
                     people_dict['경력사항'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/tbody/tr/td/'
                                                         'table/tbody/tr[14]/td/table/tbody/tr[3]/td[2]/table/tbody')
 
-
                     for j in self.excel_list:
                         self.csv_data[j].append(people_dict[j])
 
@@ -132,8 +129,8 @@ class TradeinCrawler(SuperCrawler):
             if count >= self.read_number:
                 break
 
-            self.select_page(str(current_page))
             current_page += 1
+            self.select_page(str(current_page))
 
     def make_csv(self):
         df = DataFrame(self.csv_data, columns=self.excel_list)
