@@ -143,12 +143,11 @@ class TradeinCrawler(SuperCrawler):
 
         today_time = datetime.today().strftime("%Y%m%d%H%M")
 
-        csv_name = 'tradein_' + today_time
+        csv_name = 'csv/tradein_' + today_time + '.csv'
 
-        export_csv = df.to_csv('csv/tradein' + today_time + '.csv', index=None, header=True)
+        export_csv = df.to_csv(csv_name, index=None, header=True)
 
-        self.file_link = 'http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/csv/' \
-                         + today_time + '.csv'
+        self.file_link = 'http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/' + csv_name
 
         print("링크")
         print('http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/csv/'
