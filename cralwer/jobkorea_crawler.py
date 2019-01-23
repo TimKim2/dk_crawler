@@ -50,7 +50,7 @@ class JobKoreaCrawler(SuperCrawler):
                     people_dict = defaultdict(str)
 
                     people_dict['URL'] = self.enter_page('//*[@id="dvBasicResumeList"]/section/div[1]'
-                                                         '/div[2]/table/tbody/tr[' + str(i + 1) + ']/td[1]/div[1]/a')
+                                                         '/div[2]/table/tbody/tr[' + str((i % 30) + 1) + ']/td[1]/div[1]/a')
 
                     self.wait_action('/html/body/div[2]/div/button[1]')
                     self.click_action('/html/body/div[2]/div/button[1]')

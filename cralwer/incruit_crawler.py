@@ -49,7 +49,7 @@ class IncruitCrawler(SuperCrawler):
                 try:
                     people_dict = defaultdict(str)
                     people_dict['URL'] = self.enter_page('//*[@id="searchForm"]/div[2]/div[2]/div/div[2]/'
-                                                         'table/tbody/tr[' + str((count % 50) + 1) + ']/th/div/h3/a')
+                                                         'table/tbody/tr[' + str((count % 60) + 1) + ']/th/div/h3/a')
 
                     # self.enter_page('//*[@id="searchForm"]/div[2]/div[2]/div/div[2]/table/tbody/tr[1]/th/div/h3/a')
 
