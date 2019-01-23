@@ -53,6 +53,12 @@ class WorknetCrawler(SuperCrawler):
 
                     people_dict['URL'] = self.enter_page('//*[@id="subInfoForm"]/div[2]/table/tbody/tr['
                                                          + str((count % 10) + 1) + ']/td[1]/div/a')
+
+                    if self.check_alert():
+                        count += 1
+                        self.read_number += 1
+                        continue
+
                     self.wait_action('//*[@id="contents"]/div[2]')
 
                     people_dict['총경력'] = self.get_text('//*[@id="contents"]/div[2]/div[2]/div[2]/div[1]/div/ul/li[1]/span')

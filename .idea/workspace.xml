@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bae0e0a-9739-4470-819a-2f1d5eb5e300" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/cralwer/incruit_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/cralwer/incruit_crawler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cralwer/jobkorea_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/cralwer/jobkorea_crawler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cralwer/super_selenium.py" beforeDir="false" afterPath="$PROJECT_DIR$/cralwer/super_selenium.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cralwer/worknet_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/cralwer/worknet_crawler.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,13 +43,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="2" />
-          <entry key="py" value="7301" />
+          <entry key="py" value="7303" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="7301" />
+          <entry key="Python" value="7303" />
         </counts>
       </usages-collector>
     </session>
@@ -73,11 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cralwer/incruit_crawler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="51" column="91" selection-start-line="51" selection-start-column="91" selection-end-line="51" selection-end-column="91" />
+            <state relative-caret-position="422">
+              <caret line="141" column="119" selection-start-line="141" selection-start-column="28" selection-end-line="141" selection-end-column="119" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
                 <marker date="1548250774492" expanded="true" signature="662:668" ph="..." />
@@ -96,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cralwer/worknet_crawler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-35">
-              <caret line="110" column="45" lean-forward="true" selection-start-line="110" selection-start-column="45" selection-end-line="110" selection-end-column="45" />
+            <state relative-caret-position="122">
+              <caret line="133" column="57" selection-start-line="133" selection-start-column="57" selection-end-line="133" selection-end-column="57" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
               </folding>
@@ -224,12 +221,6 @@
               <item name="dk_crawler" type="b2602c69:ProjectViewProjectNode" />
               <item name="dk_crawler" type="462c0819:PsiDirectoryNode" />
               <item name="cralwer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dk_crawler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dk_crawler" type="462c0819:PsiDirectoryNode" />
-              <item name="cralwer" type="462c0819:PsiDirectoryNode" />
-              <item name="csv" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -511,18 +502,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cralwer/incruit_crawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="51" column="91" selection-start-line="51" selection-start-column="91" selection-end-line="51" selection-end-column="91" />
-          <folding>
-            <element signature="e#0#46#0" expanded="true" />
-            <marker date="1548250774492" expanded="true" signature="662:668" ph="..." />
-            <marker date="1548250774492" expanded="true" signature="689:1159" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/selenium/webdriver/remote/errorhandler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="397">
@@ -558,10 +537,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cralwer/worknet_crawler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-35">
-          <caret line="110" column="45" lean-forward="true" selection-start-line="110" selection-start-column="45" selection-end-line="110" selection-end-column="45" />
+        <state relative-caret-position="122">
+          <caret line="133" column="57" selection-start-line="133" selection-start-column="57" selection-end-line="133" selection-end-column="57" />
           <folding>
             <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cralwer/incruit_crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="141" column="119" selection-start-line="141" selection-start-column="28" selection-end-line="141" selection-end-column="119" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+            <marker date="1548250774492" expanded="true" signature="662:668" ph="..." />
+            <marker date="1548250774492" expanded="true" signature="689:1159" ph="..." />
           </folding>
         </state>
       </provider>
