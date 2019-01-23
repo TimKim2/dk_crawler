@@ -28,6 +28,9 @@ class WorknetCrawler(SuperCrawler):
         self.url_action('https://www.work.go.kr/member/bodyLogin.do')
         self.wait_action('//*[@id="loginArea"]/div[2]')
 
+        self.wait_action('//*[@id="wrapper"]/div/div/div[2]/button[1]')
+        self.click_action('//*[@id="wrapper"]/div/div/div[2]/button[1]')
+
         self.driver.switch_to_window(self.driver.window_handles[0])
 
         self.input_action('//*[@id="custId2"]', self.id)
@@ -40,7 +43,8 @@ class WorknetCrawler(SuperCrawler):
 
     def set_condition(self):
         self.url_action(self.crawl_url)
-        self.wait_action('//*[@id="subInfoForm"]/div[2]')
+
+        self.wait_action('//*[@id="subInfoForm"]/div[2]/table')
 
     def crawling_resume(self):
         count = 0
@@ -92,7 +96,8 @@ class WorknetCrawler(SuperCrawler):
                     for j in self.excel_list:
                         self.csv_data[j].append(people_dict[j])
 
-                    self.go_back_page()
+                    self.driver.close()
+                    self.driver.switch_to_window(self.driver.window_handles[1])
 
                     self.wait_action('//*[@id="Table4"]/tbody/tr[6]')
 
@@ -140,9 +145,10 @@ class WorknetCrawler(SuperCrawler):
         self.wait_action('//*[@id="subInfoForm"]/div[2]')
 
     def enter_page(self, xpath):
-        button = self.find_element(xpath)
+        self.click_action(xpath)
 
-        link_url = button.get_property('href')
+        link_url = self.driver.current_url
+        print(link_url)
         self.url_action(link_url)
 
         return link_url
@@ -150,12 +156,5 @@ class WorknetCrawler(SuperCrawler):
 
 if __name__ == '__main__':
     crawler = WorknetCrawler()
-    crawler.init_condition('https://www.work.go.kr/psnInfo/psnInfoSrch/dtlPsnSrch.do?carOwnerYn=&careerTo=&'
-                           'militaryExcHopeCd=&occupation=01&rot2WorkYn=&payGbn=&resultCnt=10&birthFromYY=&'
-                           'cert=&minPay=&hopePl=&searchOn=Y&careerTypes=&subEmpHopeYn=&academicGbn=&foriegn'
-                           '=%2C%2C&isChkLocCall=&major=&maxage=&minage=&foriegnYn=%2C%2C&sortField=DATE&moerButt'
-                           'onYn=&drivePossibleYn=&sortOrderBy=DESC&keyword=&birthToYY=&academicGbnoEdu=Y&termSear'
-                           'chGbn=all&sexCd=N&webIsOut=&isEmptyHeader=&maxPay=&_csrf=b2896595-eb82-41c9-b099-7024189b5'
-                           '854&readjustPossYn=&pageCode=&rot3WorkYn=&regDateEndt=&pageIndex=1&careerFrom=&computerCd=&emp'
-                           'loyGbn=&disableYn=&region=&regDateStdt=#viewSPL', 2)
+    crawler.init_condition('https://www.work.go.kr/psnInfo/psnInfoSrch/dtlPsnSrch.do?carOwnerYn=&careerTo=&militaryExcHopeCd=&occupation=&rot2WorkYn=&payGbn=&resultCnt=10&birthFromYY=&cert=&minPay=&hopePl=&searchOn=Y&careerTypes=&subEmpHopeYn=&academicGbn=&foriegn=%2C%2C&isChkLocCall=&major=&maxage=&minage=&foriegnYn=%2C%2C&sortField=DATE&moerButtonYn=&drivePossibleYn=&sortOrderBy=DESC&keyword=&birthToYY=&academicGbnoEdu=Y&termSearchGbn=all&sexCd=N&webIsOut=&isEmptyHeader=&maxPay=&_csrf=0b4292ea-e236-4f4e-a95b-7f1241677b91&readjustPossYn=&pageCode=&rot3WorkYn=&regDateEndt=&pageIndex=1&careerFrom=&computerCd=&employGbn=&disableYn=&region=&regDateStdt=#viewSPL', 2)
     crawler.run()
