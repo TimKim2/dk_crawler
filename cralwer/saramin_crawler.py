@@ -3,6 +3,7 @@ from cralwer.people import People
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from pandas import DataFrame
+from collections import defaultdict
 
 
 class SaramInCrawler(SuperCrawler):
@@ -21,6 +22,8 @@ class SaramInCrawler(SuperCrawler):
         self.people_list = []
 
         self.file_link = ''
+
+        self.excel_list = ['URL', '나이', '희망업종', '희망직종', '희망연봉', '현재상태', '근무지역선택']
 
     def init_condition(self, first_business_category='', second_business_category='', occupational_category='',
                        area_category='', detail_area_category='', sex_category='', read_number=50):
@@ -82,13 +85,15 @@ class SaramInCrawler(SuperCrawler):
         while True:
             for i in range(0, 50):
                 try:
+
+                    people_dict = defaultdict(str)
                     people = People()
 
-                    people.age = self.get_age('//*[@id="Table4"]/tbody/tr[6]/td/'
-                                              'table/tbody/tr[' + str((count % 50) * 3 + 1) + ']/td[1]')
+                    people_dict['나이'] = self.get_age('//*[@id="Table4"]/tbody/tr[6]/td/'
+                                                     'table/tbody/tr[' + str((count % 50) * 3 + 1) + ']/td[1]')
 
-                    people.url = self.enter_page('//*[@id="Table4"]/tbody/tr[6]/td/'
-                                                 'table/tbody/tr[' + str((count % 50) * 3 + 1) + ']/td[4]/a')
+                    people_dict['URL'] = self.enter_page('//*[@id="Table4"]/tbody/tr[6]/td/'
+                                                         'table/tbody/tr[' + str((count % 50) * 3 + 1) + ']/td[4]/a')
 
                     if self.check_alert():
                         count += 1
@@ -98,29 +103,30 @@ class SaramInCrawler(SuperCrawler):
                     self.wait_action('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/'
                                      'tbody/tr/td/table/tbody/tr[4]/td/table')
 
-                    people.hope_work = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/'
-                                                         'tbody/tr/td[4]/table/tbody/'
-                                                         'tr/td/table/tbody/tr[4]/td/table/'
-                                                         'tbody/tr[3]/td[2]/table/tbody/'
-                                                         'tr[1]/td[5]').text
+                    people_dict['희망업종'] = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/'
+                                                            'tbody/tr/td[4]/table/tbody/'
+                                                             'tr/td/table/tbody/tr[4]/td/table/'
+                                                             'tbody/tr[3]/td[2]/table/tbody/'
+                                                             'tr[1]/td[5]').text
 
-                    people.hope_business = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody'
-                                                             '/tr/td[4]/table/tbody/tr/td/table/tbody/tr[4]/'
-                                                             'td/table/tbody/tr[3]/td[2]/table/tbody/tr[3]/td[4]').text
+                    people_dict['희망직종'] = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody'
+                                                                 '/tr/td[4]/table/tbody/tr/td/table/tbody/tr[4]/'
+                                                                 'td/table/tbody/tr[3]/td[2]/table/tbody/tr[3]/td[4]').text
 
-                    people.hope_money = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/'
-                                                          'tr/td[4]/table/tbody/tr/td/table/tbody/tr[4]/'
-                                                          'td/table/tbody/tr[3]/td[2]/table/tbody/tr[7]/td[4]').text
+                    people_dict['희망연봉'] = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/'
+                                                            'tr/td[4]/table/tbody/tr/td/table/tbody/tr[4]/'
+                                                              'td/table/tbody/tr[3]/td[2]/table/tbody/tr[7]/td[4]').text
 
-                    people.current_state = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]'
-                                                             '/table/tbody/tr/td/table/tbody/tr[4]/td/table/tbody/'
-                                                             'tr[3]/td[2]/table/tbody/tr[11]/td[4]').text
+                    people_dict['현재상태'] = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]'
+                                                                 '/table/tbody/tr/td/table/tbody/tr[4]/td/table/tbody/'
+                                                                 'tr[3]/td[2]/table/tbody/tr[11]/td[4]').text
 
-                    people.work_area = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/'
-                                                         'table/tbody/tr/td/table/tbody/tr[4]/td/table/tbody/tr[3]'
-                                                         '/td[2]/table/tbody/tr[13]/td[4]').text
+                    people_dict['근무지역선택'] = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/'
+                                                             'table/tbody/tr/td/table/tbody/tr[4]/td/table/tbody/tr[3]'
+                                                             '/td[2]/table/tbody/tr[13]/td[4]').text
 
-                    self.people_list.append(people)
+                    for j in self.excel_list:
+                        self.csv_data[j].append(people_dict[j])
 
                     self.go_back_page()
 
@@ -142,44 +148,13 @@ class SaramInCrawler(SuperCrawler):
             current_page += 1
 
     def make_csv(self):
-        url_list = []
-        age_list = []
-        hope_work_list = []
-        hope_business_list = []
-        hope_money_list = []
-        current_state_list = []
-        # last_achieve_list = []
-        work_area_list = []
-        # major_list = []
-
-        for i in self.people_list:
-            url_list.append(i.url)
-            age_list.append(i.age)
-            hope_work_list.append(i.hope_work)
-            hope_business_list.append(i.hope_business)
-            hope_money_list.append(i.hope_money)
-            current_state_list.append(i.current_state)
-            # last_achieve_list.append(i.last_achieve)
-            work_area_list.append(i.work_area)
-            # major_list.append(i.major)
-
-        csv_data = {}
-
-        csv_data['URL'] = url_list
-        csv_data['나이'] = age_list
-        csv_data['희망업종'] = hope_work_list
-        csv_data['희망직종'] = hope_business_list
-        csv_data['희망연봉'] = hope_money_list
-        csv_data['현재상태'] = current_state_list
-        csv_data['근무지역선택'] = work_area_list
-        # csv_data['전공'] = major_list
-
-        df = DataFrame(csv_data, columns=['URL', '나이', '희망업종', '희망직종', '희망연봉', '현재상태',
-                                          '근무지역선택'])
+        df = DataFrame(self.csv_data, columns=self.excel_list)
 
         today_time = datetime.today().strftime("%Y%m%d%H%M")
 
-        export_csv = df.to_csv('csv/' + today_time + '.csv', index=None, header=True)
+        csv_name = 'tradein_' + today_time
+
+        export_csv = df.to_csv('csv/tradein' + today_time + '.csv', index=None, header=True)
 
         self.file_link = 'http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/csv/' \
                          + today_time + '.csv'
@@ -234,5 +209,5 @@ class SaramInCrawler(SuperCrawler):
 
 if __name__ == '__main__':
     crawler = TradeinCrawler()
-    crawler.init_condition('무역서비스업', '판매', '오더관리', '경기', '가평군', '남', 60)
+    crawler.init_condition('무역서비스업', '판매', '오더관리', '경기', '가평군', '남', 2)
     crawler.run()

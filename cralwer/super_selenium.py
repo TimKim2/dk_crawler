@@ -9,7 +9,13 @@ from selenium.webdriver.common.keys import Keys
 class SuperSelenium(object):
     def __init__(self):
         print('시작')
-        self.driver = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+
+        self.driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', chrome_options=options)
+        # self.driver = webdriver.Chrome()
 
     def url_action(self, url):
         self.driver.get(url)
@@ -77,9 +83,13 @@ class SuperSelenium(object):
         return elements
 
     def get_text(self, xpath):
-        element = self.driver.find_element_by_xpath(xpath)
 
-        return element.text
+        try:
+            element = self.driver.find_element_by_xpath(xpath)
+
+            return element.text
+        except Exception:
+            return ''
 
     def wait_time_action(self, delay):
         try:

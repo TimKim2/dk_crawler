@@ -1,5 +1,4 @@
 from cralwer.super_crawler import SuperCrawler
-from cralwer.people import People
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from pandas import DataFrame
@@ -11,29 +10,32 @@ class TradeinCrawler(SuperCrawler):
         super(TradeinCrawler, self).__init__()
         self.repeat_count = 10
 
-        self.first_business_category = ''
-        self.second_business_category = ''
-        self.occupational_category = ''
-        self.area_category = ''
-        self.detail_area_category = ''
-        self.sex_category = ''
+        self.crawl_url = 'http://www.tradein.co.kr/apply/apply_all.asp'
         self.read_number = 1
-
-        self.people_list = []
 
         self.file_link = ''
 
-        self.excel_list = ['URL', '나이', '희망업종', '희망직종', '희망연봉', '현재상태', '근무지역선택']
+        self.id = 'dnn8149'
+        self.pw = 'dnn8149*'
 
-    def init_condition(self, first_business_category='', second_business_category='', occupational_category='',
-                       area_category='', detail_area_category='', sex_category='', read_number=50):
-        self.first_business_category = first_business_category
-        self.second_business_category = second_business_category
-        self.occupational_category = occupational_category
-        self.area_category = area_category
-        self.detail_area_category = detail_area_category
-        self.sex_category = sex_category
+        self.excel_list = ['URL', '나이', '희망업종', '희망직종', '희망연봉', '현재상태', '근무지역선택', '최종학력사항',
+                           '자격사항', '어학능력', '어학시험', '경력사항']
+
+    def init_condition(self, crawl_url, read_number=50):
+
+        self.crawl_url = crawl_url
         self.read_number = read_number
+
+    def login_page(self):
+        self.url_action('http://www.tradein.co.kr/member/login_error.asp?fla=1')
+        self.wait_action('//*[@id="Table4"]/tbody/tr/td[2]/table/tbody')
+
+        self.click_action('//*[@id="Radio2"]')
+
+        self.input_action('//*[@id="Table4"]/tbody/tr/td[2]/table/tbody/tr[6]/td[3]/input', self.id)
+        self.input_action('//*[@id="Table4"]/tbody/tr/td[2]/table/tbody/tr[8]/td[3]/input', self.pw)
+
+        self.click_action('//*[@id="Table4"]/tbody/tr/td[2]/table/tbody/tr[6]/td[5]/a')
 
     def load_page(self):
         self.url_action('http://www.tradein.co.kr/apply/apply_all.asp')
@@ -42,31 +44,7 @@ class TradeinCrawler(SuperCrawler):
                          'table/tbody/tr/td[2]/select')
 
     def set_condition(self):
-        self.click_condition(self.first_business_category,
-                             '//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/tbody/'
-                             'tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[1]/td/'
-                             'table/tbody/tr/td[2]/select')
-
-        self.click_condition(self.second_business_category,
-                             '//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/tbody/'
-                             'tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[1]/td/'
-                             'table/tbody/tr/td[3]/select')
-
-        self.click_condition(self.occupational_category,
-                             '//*[@id="Select3"]')
-
-        self.click_condition(self.area_category,
-                             '//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/'
-                             'td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/'
-                             'td[3]/table/tbody/tr[3]/td/table/tbody/tr/td[2]/select[1]')
-
-        self.click_condition(self.detail_area_category,
-                             '//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/tbody/tr[3]/td/table/'
-                             'tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[3]/td/table/tbody/tr/td[2]/select[2]')
-
-        self.click_condition(self.sex_category,
-                             '//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/tbody/tr[3]/td/table/'
-                             'tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/select')
+        self.url_action('http://www.tradein.co.kr/apply/apply_all.asp')
 
         self.click_condition('50',
                              '//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/tbody/tr[3]/td/table/'
@@ -87,9 +65,6 @@ class TradeinCrawler(SuperCrawler):
                 try:
 
                     people_dict = defaultdict(str)
-                    people = People()
-
-                    ['URL', '나이', '희망업종', '희망직종', '희망연봉', '현재상태', '근무지역선택']
 
                     people_dict['나이'] = self.get_age('//*[@id="Table4"]/tbody/tr[6]/td/'
                                                      'table/tbody/tr[' + str((count % 50) * 3 + 1) + ']/td[1]')
@@ -105,27 +80,46 @@ class TradeinCrawler(SuperCrawler):
                     self.wait_action('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/'
                                      'tbody/tr/td/table/tbody/tr[4]/td/table')
 
-                    people_dict['희망업종'] = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/'
+                    people_dict['희망업종'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/'
                                                             'tbody/tr/td[4]/table/tbody/'
                                                              'tr/td/table/tbody/tr[4]/td/table/'
                                                              'tbody/tr[3]/td[2]/table/tbody/'
-                                                             'tr[1]/td[5]').text
+                                                             'tr[1]/td[5]')
 
-                    people_dict['희망직종'] = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody'
+                    people_dict['희망직종'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody'
                                                                  '/tr/td[4]/table/tbody/tr/td/table/tbody/tr[4]/'
-                                                                 'td/table/tbody/tr[3]/td[2]/table/tbody/tr[3]/td[4]').text
+                                                                 'td/table/tbody/tr[3]/td[2]/table/tbody/tr[3]/td[4]')
 
-                    people_dict['희망연봉'] = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/'
+                    people_dict['희망연봉'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/'
                                                             'tr/td[4]/table/tbody/tr/td/table/tbody/tr[4]/'
-                                                              'td/table/tbody/tr[3]/td[2]/table/tbody/tr[7]/td[4]').text
+                                                              'td/table/tbody/tr[3]/td[2]/table/tbody/tr[7]/td[4]')
 
-                    people_dict['현재상태'] = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]'
+                    people_dict['현재상태'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]'
                                                                  '/table/tbody/tr/td/table/tbody/tr[4]/td/table/tbody/'
-                                                                 'tr[3]/td[2]/table/tbody/tr[11]/td[4]').text
+                                                                 'tr[3]/td[2]/table/tbody/tr[11]/td[4]')
 
-                    people_dict['근무지역선택'] = self.find_element('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/'
+                    people_dict['근무지역선택'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/'
                                                              'table/tbody/tr/td/table/tbody/tr[4]/td/table/tbody/tr[3]'
-                                                             '/td[2]/table/tbody/tr[13]/td[4]').text
+                                                             '/td[2]/table/tbody/tr[13]/td[4]')
+
+                    people_dict['최종학력사항'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/tbody/tr/td'
+                                                          '/table/tbody/tr[6]/td/table/tbody/tr[3]/td[2]/table/tbody')
+
+                    people_dict['자격사항'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/'
+                                                        'tbody/tr/td/table/tbody/tr[8]/td/table/tbody')
+
+                    people_dict['어학능력'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]'
+                                                        '/table/tbody/tr/td/table/tbody/tr[10]/td/table/tbody')
+
+                    people_dict['어학시험'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/'
+                                                        'tbody/tr/td/table/tbody/tr[12]/td/table/tbody/tr[3]/td[2]/table/tbody')
+
+                    people_dict['경력사항'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/tbody/tr/td/'
+                                                        'table/tbody/tr[14]/td/table/tbody/tr[3]/td[2]/table/tbody')
+
+
+
+
 
                     for j in self.excel_list:
                         self.csv_data[j].append(people_dict[j])
@@ -211,5 +205,5 @@ class TradeinCrawler(SuperCrawler):
 
 if __name__ == '__main__':
     crawler = TradeinCrawler()
-    crawler.init_condition('무역서비스업', '판매', '오더관리', '경기', '가평군', '남', 2)
+    crawler.init_condition('http://www.tradein.co.kr/apply/apply_all.asp', 2)
     crawler.run()
