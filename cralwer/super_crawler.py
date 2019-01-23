@@ -11,16 +11,12 @@ class SuperCrawler(SuperSelenium):
 
     def run(self):
         self.login_page()
-        self.load_page()
         self.set_condition()
         self.crawling_resume()
         self.make_csv()
         self.driver.quit()
 
     def login_page(self):
-        raise NotImplementedError
-
-    def load_page(self):
         raise NotImplementedError
 
     def set_condition(self):

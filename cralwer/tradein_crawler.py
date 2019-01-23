@@ -37,14 +37,11 @@ class TradeinCrawler(SuperCrawler):
 
         self.click_action('//*[@id="Table4"]/tbody/tr/td[2]/table/tbody/tr[6]/td[5]/a')
 
-    def load_page(self):
-        self.url_action('http://www.tradein.co.kr/apply/apply_all.asp')
+    def set_condition(self):
+        self.url_action(self.crawl_url)
         self.wait_action('//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/tbody/'
                          'tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[1]/td/'
                          'table/tbody/tr/td[2]/select')
-
-    def set_condition(self):
-        self.url_action('http://www.tradein.co.kr/apply/apply_all.asp')
 
         self.click_condition('50', '//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[4]/td/table/tbody/tr/td[4]/select')
 
