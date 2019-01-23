@@ -29,7 +29,6 @@ class SuperSelenium(object):
                 button = self.find_element(xpath)
                 button.click()
             except Exception as e:
-                print(e)
                 continue
             break
 
@@ -42,7 +41,6 @@ class SuperSelenium(object):
                 # button.click()
                 pass
             except Exception as e:
-                print(e)
                 continue
             break
 
@@ -86,7 +84,6 @@ class SuperSelenium(object):
 
         try:
             element = self.driver.find_element_by_xpath(xpath)
-
             return element.text
         except Exception:
             return ''
@@ -114,3 +111,16 @@ class SuperSelenium(object):
             return True
         except TimeoutException:
             return False
+
+    def dismiss_alert(self):
+        try:
+            WebDriverWait(self.driver, 3).until(EC.alert_is_present(),
+                                                'Timed out waiting for PA creation ' +
+                                                'confirmation popup to appear.')
+
+            alert = self.driver.switch_to.alert
+            alert.dismiss()
+            return True
+        except TimeoutException:
+            return False
+
