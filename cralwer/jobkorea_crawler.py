@@ -46,40 +46,37 @@ class JobKoreaCrawler(SuperCrawler):
 
         while True:
             for i in range(0, 30):
-                try:
-                    people_dict = defaultdict(str)
 
-                    people_dict['URL'] = self.enter_page('//*[@id="dvBasicResumeList"]/section/div[1]'
-                                                         '/div[2]/table/tbody/tr[' + str((i % 30) + 1) + ']/td[1]/div[1]/a')
+                people_dict = defaultdict(str)
 
-                    self.wait_action('/html/body/div[2]/div/button[1]')
-                    self.click_action('/html/body/div[2]/div/button[1]')
+                people_dict['URL'] = self.enter_page('//*[@id="dvBasicResumeList"]/section/div[1]'
+                                                     '/div[2]/table/tbody/tr[' + str((i % 30) + 1) + ']/td[1]/div[1]/a')
 
-                    self.wait_action('/html/body/div[2]/div')
+                self.wait_action('/html/body/div[2]/div/button[1]')
+                self.click_action('/html/body/div[2]/div/button[1]')
 
-                    people_dict['나이'] = self.get_text('/html/body/div[4]/div[2]/div/div[4]/div[1]/div[2]/div[1]')
+                self.wait_action('/html/body/div[2]/div')
 
-                    people_dict['학력'] = self.get_text('/html/body/div[4]/div[2]/div/div[5]/div/div')
+                people_dict['나이'] = self.get_text('/html/body/div[4]/div[2]/div/div[4]/div[1]/div[2]/div[1]')
 
-                    people_dict['총경력'] = self.get_text('/html/body/div[4]/div[2]/div/div[6]/div[1]/div/div')
+                people_dict['학력'] = self.get_text('/html/body/div[4]/div[2]/div/div[5]/div/div')
 
-                    people_dict['경력'] = self.get_text('/html/body/div[4]/div[2]/div/div[6]/div[2]')
+                people_dict['총경력'] = self.get_text('/html/body/div[4]/div[2]/div/div[6]/div[1]/div/div')
 
-                    people_dict['어학'] = self.get_text('/html/body/div[4]/div[2]/div/div[10]/div')
+                people_dict['경력'] = self.get_text('/html/body/div[4]/div[2]/div/div[6]/div[2]')
 
-                    people_dict['자격증'] = self.get_text('/html/body/div[4]/div[2]/div/div[7]/div')
+                people_dict['어학'] = self.get_text('/html/body/div[4]/div[2]/div/div[10]/div')
 
-                    people_dict['희망근무조건'] = self.get_text('//*[@id="js-hopeworkAnchor"]/table')
+                people_dict['자격증'] = self.get_text('/html/body/div[4]/div[2]/div/div[7]/div')
 
-                    for j in self.excel_list:
-                        self.csv_data[j].append(people_dict[j])
+                people_dict['희망근무조건'] = self.get_text('//*[@id="js-hopeworkAnchor"]/table')
 
-                    self.go_back_page()
+                for j in self.excel_list:
+                    self.csv_data[j].append(people_dict[j])
 
-                    self.wait_action('//*[@id="dvBasicResumeList"]/section/div[1]/div[2]/table')
+                self.go_back_page()
 
-                except Exception as e:
-                    print(e)
+                self.wait_action('//*[@id="dvBasicResumeList"]/section/div[1]/div[2]/table')
 
                 count += 1
                 self.printProgress(count, self.read_number, 'Progress:', 'Complete', 1, 100)
