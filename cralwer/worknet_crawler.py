@@ -15,8 +15,8 @@ class WorknetCrawler(SuperCrawler):
 
         self.file_link = ''
 
-        self.id = 'dnn8149'
-        self.pw = 'dnn8149*'
+        self.id = 'dnd8149'
+        self.pw = 'dandd8149*'
 
         self.excel_list = ['URL', '나이', '희망업종', '희망직종', '희망연봉', '현재상태', '근무지역선택', '최종학력사항',
                            '자격사항', '어학능력', '어학시험', '경력사항']

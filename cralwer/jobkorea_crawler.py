@@ -10,7 +10,7 @@ class JobKoreaCrawler(SuperCrawler):
         super(JobKoreaCrawler, self).__init__()
         self.repeat_count = 10
 
-        self.crawl_url = 'http://www.tradein.co.kr/apply/apply_all.asp'
+        self.crawl_url = 'http://www.jobkorea.co.kr/Corp/Person/Find'
         self.read_number = 1
 
         self.file_link = ''
@@ -18,8 +18,7 @@ class JobKoreaCrawler(SuperCrawler):
         self.id = 'dnd8149'
         self.pw = 'dnd8149*'
 
-        self.excel_list = ['URL', '나이', '희망업종', '희망직종', '희망연봉', '현재상태', '근무지역선택', '최종학력사항',
-                           '자격사항', '어학능력', '어학시험', '경력사항']
+        self.excel_list = ['URL', '나이', '주소', '학력', '총경력', '경력', '자격증', '어학', '희망근무지', '희망연봉']
 
     def init_condition(self, crawl_url, read_number=50):
 
@@ -35,21 +34,10 @@ class JobKoreaCrawler(SuperCrawler):
 
         self.click_action('//*[@id="loginForm"]/div/div[2]/button')
 
-    def load_page(self):
-        self.url_action('http://www.tradein.co.kr/apply/apply_all.asp')
-        self.wait_action('//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/tbody/'
-                         'tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[1]/td/'
-                         'table/tbody/tr/td[2]/select')
-
     def set_condition(self):
-        self.url_action('http://www.tradein.co.kr/apply/apply_all.asp')
+        self.url_action(self.crawl_url)
 
-        self.click_condition('50', '//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[4]/td/table/tbody/tr/td[4]/select')
-
-        self.click_action('//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/'
-                          'tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[4]/a')
-
-        self.wait_action('//*[@id="Table4"]/tbody/tr[6]')
+        self.wait_action('//*[@id="dvBasicResumeList"]/section/div[1]/div[2]/table')
 
     def crawling_resume(self):
 
@@ -57,69 +45,38 @@ class JobKoreaCrawler(SuperCrawler):
         current_page = 1
 
         while True:
-            for i in range(0, 50):
+            for i in range(0, 30):
                 try:
-
                     people_dict = defaultdict(str)
 
-                    people_dict['나이'] = self.get_age('//*[@id="Table4"]/tbody/tr[6]/td/'
-                                                     'table/tbody/tr[' + str((count % 50) * 3 + 1) + ']/td[1]')
+                    people_dict['URL'] = self.enter_page('//*[@id="dvBasicResumeList"]/section/div[1]'
+                                                         '/div[2]/table/tbody/tr[' + str(i + 1) + ']/td[1]/div[1]/a')
 
-                    people_dict['URL'] = self.enter_page('//*[@id="Table4"]/tbody/tr[6]/td/'
-                                                         'table/tbody/tr[' + str((count % 50) * 3 + 1) + ']/td[4]/a')
+                    self.wait_action('/html/body/div[2]/div/button[1]')
+                    self.click_action('/html/body/div[2]/div/button[1]')
 
-                    if self.check_alert():
-                        count += 1
-                        self.read_number += 1
-                        continue
+                    self.wait_action('/html/body/div[2]/div')
 
-                    self.wait_action('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/'
-                                     'tbody/tr/td/table/tbody/tr[4]/td/table')
+                    people_dict['나이'] = self.get_text('/html/body/div[4]/div[2]/div/div[4]/div[1]/div[2]/div[1]')
 
-                    people_dict['희망업종'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/'
-                                                            'tbody/tr/td[4]/table/tbody/'
-                                                             'tr/td/table/tbody/tr[4]/td/table/'
-                                                             'tbody/tr[3]/td[2]/table/tbody/'
-                                                             'tr[1]/td[5]')
+                    people_dict['학력'] = self.get_text('/html/body/div[4]/div[2]/div/div[5]/div/div')
 
-                    people_dict['희망직종'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody'
-                                                                 '/tr/td[4]/table/tbody/tr/td/table/tbody/tr[4]/'
-                                                                 'td/table/tbody/tr[3]/td[2]/table/tbody/tr[3]/td[4]')
+                    people_dict['총경력'] = self.get_text('/html/body/div[4]/div[2]/div/div[6]/div[1]/div/div')
 
-                    people_dict['희망연봉'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/'
-                                                            'tr/td[4]/table/tbody/tr/td/table/tbody/tr[4]/'
-                                                              'td/table/tbody/tr[3]/td[2]/table/tbody/tr[7]/td[4]')
+                    people_dict['경력'] = self.get_text('/html/body/div[4]/div[2]/div/div[6]/div[2]')
 
-                    people_dict['현재상태'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]'
-                                                                 '/table/tbody/tr/td/table/tbody/tr[4]/td/table/tbody/'
-                                                                 'tr[3]/td[2]/table/tbody/tr[11]/td[4]')
+                    people_dict['어학'] = self.get_text('/html/body/div[4]/div[2]/div/div[10]/div')
 
-                    people_dict['근무지역선택'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/'
-                                                             'table/tbody/tr/td/table/tbody/tr[4]/td/table/tbody/tr[3]'
-                                                             '/td[2]/table/tbody/tr[13]/td[4]')
+                    people_dict['자격증'] = self.get_text('/html/body/div[4]/div[2]/div/div[7]/div')
 
-                    people_dict['최종학력사항'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/tbody/tr/td'
-                                                          '/table/tbody/tr[6]/td/table/tbody/tr[3]/td[2]/table/tbody')
-
-                    people_dict['자격사항'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/'
-                                                        'tbody/tr/td/table/tbody/tr[8]/td/table/tbody')
-
-                    people_dict['어학능력'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]'
-                                                        '/table/tbody/tr/td/table/tbody/tr[10]/td/table/tbody')
-
-                    people_dict['어학시험'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/'
-                                                        'tbody/tr/td/table/tbody/tr[12]/td/table/tbody/tr[3]/td[2]/table/tbody')
-
-                    people_dict['경력사항'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/tbody/tr/td/'
-                                                        'table/tbody/tr[14]/td/table/tbody/tr[3]/td[2]/table/tbody')
-
+                    people_dict['희망근무조건'] = self.get_text('//*[@id="js-hopeworkAnchor"]/table')
 
                     for j in self.excel_list:
                         self.csv_data[j].append(people_dict[j])
 
                     self.go_back_page()
 
-                    self.wait_action('//*[@id="Table4"]/tbody/tr[6]')
+                    self.wait_action('//*[@id="dvBasicResumeList"]/section/div[1]/div[2]/table')
 
                 except Exception as e:
                     print(e)
@@ -133,22 +90,17 @@ class JobKoreaCrawler(SuperCrawler):
             if count >= self.read_number:
                 break
 
-            self.select_page(str(current_page))
             current_page += 1
+            self.select_page(str(current_page))
 
     def make_csv(self):
         df = DataFrame(self.csv_data, columns=self.excel_list)
+        file_name = 'csv/JobKorea' + datetime.today().strftime("%Y%m%d%H%M") + '.csv'
 
-        today_time = datetime.today().strftime("%Y%m%d%H%M")
-
-        csv_name = 'csv/tradein_' + today_time + '.csv'
-
-        export_csv = df.to_csv(csv_name, index=None, header=True)
-
-        self.file_link = 'http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/' + csv_name
+        export_csv = df.to_csv(file_name, index=None, header=True)
 
         print("링크")
-        print('http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/' + csv_name)
+        print('http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/' + file_name)
 
     def click_condition(self, category, xpath):
         if category == '':
@@ -165,13 +117,9 @@ class JobKoreaCrawler(SuperCrawler):
                 break
 
     def select_page(self, page_number):
-        page_list = self.find_elements('//*[@id="Table3"]/tbody/tr[2]/td/a')
+        self.click_action('//*[@id="dvBasicResumeList"]/section/div[2]/ul/li[' + str(page_number) + ']/a')
+        self.wait_action('//*[@id="dvBasicResumeList"]/section/div[1]/div[2]/table')
 
-        for i in page_list:
-            if page_number in i.text:
-                i.click()
-                self.wait_action('//*[@id="Table4"]/tbody/tr[6]')
-                return
 
     def get_age(self, xpath):
         age_element = self.find_element(xpath)
@@ -195,6 +143,6 @@ class JobKoreaCrawler(SuperCrawler):
 
 
 if __name__ == '__main__':
-    crawler = TradeinCrawler()
-    crawler.init_condition('http://www.tradein.co.kr/apply/apply_all.asp?rbcd=101102&rpcd=0&job=0&code=&ps=20&sex=&flag=&gotopage=1&region_si1=&region_gu1=', 2)
+    crawler = JobKoreaCrawler()
+    crawler.init_condition('http://www.jobkorea.co.kr/Corp/Person/FindByKey?key=GaxKdhrW75U5eS_kpFGQ0a7dH4ViiwJPqpKJIcryptow22PloLFZy0BPg_aMLOIFjD9tu', 2)
     crawler.run()

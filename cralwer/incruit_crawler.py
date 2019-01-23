@@ -107,8 +107,6 @@ class IncruitCrawler(SuperCrawler):
 
         export_csv = df.to_csv(file_name, index=None, header=True)
 
-        self.file_link = 'http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/' + file_name
-
         print("링크")
         print('http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/' + file_name)
 
