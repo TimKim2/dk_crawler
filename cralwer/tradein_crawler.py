@@ -150,8 +150,7 @@ class TradeinCrawler(SuperCrawler):
         self.file_link = 'http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/' + csv_name
 
         print("링크")
-        print('http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/csv/'
-              + today_time + '.csv')
+        print('http://ec2-54-180-142-25.ap-northeast-2.compute.amazonaws.com:8888/edit/notebook/' + csv_name)
 
     def click_condition(self, category, xpath):
         if category == '':
