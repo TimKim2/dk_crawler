@@ -46,9 +46,7 @@ class TradeinCrawler(SuperCrawler):
     def set_condition(self):
         self.url_action('http://www.tradein.co.kr/apply/apply_all.asp')
 
-        self.click_condition('50',
-                             '//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/tbody/tr[3]/td/table/'
-                             'tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[4]/td/table/tbody/tr/td[4]/select')
+        self.click_condition('50', '//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[4]/td/table/tbody/tr/td[4]/select')
 
         self.click_action('//*[@id="Table2"]/tbody/tr/td[2]/table[1]/tbody/tr[3]/td/table/'
                           'tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[4]/a')
@@ -116,9 +114,6 @@ class TradeinCrawler(SuperCrawler):
 
                     people_dict['경력사항'] = self.get_text('//*[@id="Table8"]/tbody/tr[5]/td/table/tbody/tr/td[4]/table/tbody/tr/td/'
                                                         'table/tbody/tr[14]/td/table/tbody/tr[3]/td[2]/table/tbody')
-
-
-
 
 
                     for j in self.excel_list:
@@ -205,5 +200,5 @@ class TradeinCrawler(SuperCrawler):
 
 if __name__ == '__main__':
     crawler = TradeinCrawler()
-    crawler.init_condition('http://www.tradein.co.kr/apply/apply_all.asp', 2)
+    crawler.init_condition('http://www.tradein.co.kr/apply/apply_all.asp?rbcd=101102&rpcd=0&job=0&code=&ps=20&sex=&flag=&gotopage=1&region_si1=&region_gu1=', 2)
     crawler.run()
